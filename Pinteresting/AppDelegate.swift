@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import PinterestSDK
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -16,7 +17,38 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        PDKClient.configureSharedInstance(withAppId: "4893409043854407128")
+        
+        if let token = PDKClient.sharedInstance().oauthToken {
+            print(token)
+            setupMain()
+        } else {
+            setupLogin()
+        }
+        
         return true
+    }
+    
+    fileprivate func setupLogin() {
+        let authNavController = UINavigationController(rootViewController: AuthenticateViewController())
+        window = UIWindow(frame: UIScreen.main.bounds)
+        window?.rootViewController = authNavController
+        window?.makeKeyAndVisible()
+    }
+    
+    fileprivate func setupMain() {
+        let mainNavConroller = UINavigationController(rootViewController: MainBoardsViewController())
+        window = UIWindow(frame: UIScreen.main.bounds)
+        window?.rootViewController = mainNavConroller
+        window?.makeKeyAndVisible()
+    }
+    
+    func application(_ application: UIApplication, handleOpen url: URL) -> Bool {
+        return PDKClient.sharedInstance().handleCallbackURL(url)
+    }
+    
+    func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+        return PDKClient.sharedInstance().handleCallbackURL(url)
     }
 
     func applicationWillResignActive(_ application: UIApplication) {
