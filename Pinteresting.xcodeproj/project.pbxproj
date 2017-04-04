@@ -17,6 +17,7 @@
 		10BAC6621E942C1D00862344 /* MainBoardsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10BAC6611E942C1D00862344 /* MainBoardsViewController.swift */; };
 		10BAC6641E942D5800862344 /* AuthenticateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10BAC6631E942D5800862344 /* AuthenticateViewController.swift */; };
 		10BAC66A1E94578E00862344 /* BoardObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10BAC6691E94578E00862344 /* BoardObject.swift */; };
+		10BAC66C1E9465A500862344 /* BoardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10BAC66B1E9465A500862344 /* BoardCell.swift */; };
 		26596152DC24D98631869D6C /* Pods_PinterestingUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB6B3AF07317280D09445BCB /* Pods_PinterestingUITests.framework */; };
 		309A4923B1B017363BAA15C8 /* Pods_Pinteresting.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3F392B83D2C473EE3B99335 /* Pods_Pinteresting.framework */; };
 		F12CE53827D45432B5F9341E /* Pods_PinterestingTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CFA2169499B07E7BC8721E60 /* Pods_PinterestingTests.framework */; };
@@ -57,6 +58,7 @@
 		10BAC6631E942D5800862344 /* AuthenticateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticateViewController.swift; sourceTree = "<group>"; };
 		10BAC6651E943FEC00862344 /* Pinteresting-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Pinteresting-Bridging-Header.h"; sourceTree = "<group>"; };
 		10BAC6691E94578E00862344 /* BoardObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoardObject.swift; sourceTree = "<group>"; };
+		10BAC66B1E9465A500862344 /* BoardCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoardCell.swift; sourceTree = "<group>"; };
 		5D8F7EB3ECAA18DD3FC0EB9C /* Pods-Pinteresting.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pinteresting.release.xcconfig"; path = "Pods/Target Support Files/Pods-Pinteresting/Pods-Pinteresting.release.xcconfig"; sourceTree = "<group>"; };
 		6014381BD12B65D3CC80BC74 /* Pods-PinterestingUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PinterestingUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PinterestingUITests/Pods-PinterestingUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		9928AB02ADED1A12752E3C52 /* Pods-PinterestingTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PinterestingTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PinterestingTests/Pods-PinterestingTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -122,6 +124,7 @@
 		10BAC62E1E9415CF00862344 /* Pinteresting */ = {
 			isa = PBXGroup;
 			children = (
+				10BAC66D1E9465CE00862344 /* CustomViews */,
 				10BAC6681E944E1B00862344 /* DataModels */,
 				10BAC62F1E9415CF00862344 /* AppDelegate.swift */,
 				10BAC65E1E942AB400862344 /* NetworkServices */,
@@ -175,6 +178,14 @@
 				10BAC6691E94578E00862344 /* BoardObject.swift */,
 			);
 			name = DataModels;
+			sourceTree = "<group>";
+		};
+		10BAC66D1E9465CE00862344 /* CustomViews */ = {
+			isa = PBXGroup;
+			children = (
+				10BAC66B1E9465A500862344 /* BoardCell.swift */,
+			);
+			name = CustomViews;
 			sourceTree = "<group>";
 		};
 		B457B0954D65CE832D23ADBF /* Frameworks */ = {
@@ -489,6 +500,7 @@
 				10BAC6301E9415CF00862344 /* AppDelegate.swift in Sources */,
 				10BAC6641E942D5800862344 /* AuthenticateViewController.swift in Sources */,
 				10BAC6621E942C1D00862344 /* MainBoardsViewController.swift in Sources */,
+				10BAC66C1E9465A500862344 /* BoardCell.swift in Sources */,
 				10BAC66A1E94578E00862344 /* BoardObject.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

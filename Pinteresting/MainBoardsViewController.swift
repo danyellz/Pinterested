@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import Stevia
 
-class MainBoardsViewController: UIViewController {
+class MainBoardsViewController: UIViewController{
     // MARK : Network managers
     var pinterestManager = PinterestManager()
     

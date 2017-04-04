@@ -16,11 +16,11 @@ class PinterestManager {
     func userAuthenticate(completionHandler: @escaping (_ success: Bool?) -> Void) {
         let permissions = [PDKClientReadPublicPermissions]
         PDKClient.sharedInstance().authenticate(withPermissions: permissions, withSuccess: {(response) -> Void in
+            
             guard response != nil else {
                 print("No response from auth.")
                 return
             }
-            
             completionHandler(true)
             
         }) {(error) -> Void in
@@ -28,6 +28,7 @@ class PinterestManager {
         }
     }
     
+    // MARK : Get boards for authenitcated user - me
     func getUserBoards(completionHandler: @escaping (_ boards: [BoardObject]?) -> Void) {
         PDKClient.sharedInstance().getAuthenticatedUserBoards(withFields: Set(["url", "id", "name", "image"]), success: {(response) -> Void in
             
@@ -36,29 +37,28 @@ class PinterestManager {
                 return
             }
             
+            // MARK : Iterate through response object, storing each board.
             var emptyBoardArr = [BoardObject]()
             for board in boards {
-                if let validBoard = BoardObject(json: board) {
-                    print("VALIDBOARD")
+                if let validBoard = BoardObject(json: board) { //Validate JSON object before storing as BoardObject
                     emptyBoardArr.append(validBoard)
                 }
             }
-            completionHandler(emptyBoardArr)
+            completionHandler(emptyBoardArr) //Pass filled collection to completion
             
         }) {(error) -> Void in
-            
+            print(error ?? "Error fetching boards")
         }
     }
     
+    // MARK: Get pins for board ID. Used in the board detail view.
     func getBoardPins(identifier: String?, completionHandler: @escaping (_ pins: [Any]?) -> Void) {
-        
         PDKClient.sharedInstance().getBoardPins(identifier!, fields: Set(["id", "image", "note"]), withSuccess: { (response) -> Void in
             
             guard let pins = response?.parsedJSONDictionary else {
                 print("Unable to parse pin JSON.")
                 return
             }
-            
             if !pins.isEmpty {
                 for pin in pins {
                     print("PIN: \(pin)")
@@ -66,7 +66,7 @@ class PinterestManager {
             }
             
         }) {(error) -> Void in
-            print(error)
+            print(error ?? "Error fetching pins")
         }
     }
 }

@@ -10,6 +10,7 @@ target 'Pinteresting' do
   pod ‘SwiftyJSON’
   pod ‘SteviaLayout’
   pod ‘PinterestSDK’
+  pod ‘SDWebImage’
 
   target 'PinterestingTests' do
     inherit! :search_paths
