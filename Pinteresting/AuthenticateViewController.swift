@@ -11,7 +11,7 @@ import UIKit
 import Stevia
 
 class AuthenticateViewController: UIViewController {
-    
+    // MARK : Network managers
     var pinterestManager = PinterestManager()
     
     // MARK : View assets
@@ -45,9 +45,8 @@ class AuthenticateViewController: UIViewController {
     @objc fileprivate func attemptPinLogin() {
         pinterestManager.userAuthenticate(completionHandler: {(response) -> Void in
             if response! {
-                self.pinterestManager.getUserBoards(completionHandler: {(boards) -> Void in
-                    
-                })
+                let mainNavController = UINavigationController(rootViewController: MainBoardsViewController())
+                self.present(mainNavController, animated: true, completion: nil)
             }
         })
     }

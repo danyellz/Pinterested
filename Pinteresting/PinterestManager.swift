@@ -28,19 +28,22 @@ class PinterestManager {
         }
     }
     
-    func getUserBoards(completionHandler: @escaping (_ boards: [Any]?) -> Void) {
-        PDKClient.sharedInstance().getAuthenticatedUserBoards(withFields: Set(["url", "id", "name"]), success: {(response) -> Void in
-            guard let boards = response?.boards() else {
+    func getUserBoards(completionHandler: @escaping (_ boards: [BoardObject]?) -> Void) {
+        PDKClient.sharedInstance().getAuthenticatedUserBoards(withFields: Set(["url", "id", "name", "image"]), success: {(response) -> Void in
+            
+            guard let boards = JSON(response?.parsedJSONDictionary["data"]!).array else {
                 print("Unable to retrieve user boards.")
                 return
             }
             
+            var emptyBoardArr = [BoardObject]()
             for board in boards {
-                let board = board as! PDKBoard
-//                self.getBoardPins(identifier: board.identifier, completionHandler: {(pins) -> Void in
-//                    
-//                })
+                if let validBoard = BoardObject(json: board) {
+                    print("VALIDBOARD")
+                    emptyBoardArr.append(validBoard)
+                }
             }
+            completionHandler(emptyBoardArr)
             
         }) {(error) -> Void in
             
@@ -58,7 +61,7 @@ class PinterestManager {
             
             if !pins.isEmpty {
                 for pin in pins {
-                    print(pin)
+                    print("PIN: \(pin)")
                 }
             }
             
