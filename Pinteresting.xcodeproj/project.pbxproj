@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		10BAC6301E9415CF00862344 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10BAC62F1E9415CF00862344 /* AppDelegate.swift */; };
-		10BAC6321E9415CF00862344 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10BAC6311E9415CF00862344 /* ViewController.swift */; };
 		10BAC6351E9415CF00862344 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 10BAC6331E9415CF00862344 /* Main.storyboard */; };
 		10BAC6371E9415CF00862344 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 10BAC6361E9415CF00862344 /* Assets.xcassets */; };
 		10BAC63A1E9415CF00862344 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 10BAC6381E9415CF00862344 /* LaunchScreen.storyboard */; };
@@ -36,7 +35,6 @@
 /* Begin PBXFileReference section */
 		10BAC62C1E9415CF00862344 /* Pinteresting.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pinteresting.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		10BAC62F1E9415CF00862344 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		10BAC6311E9415CF00862344 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		10BAC6341E9415CF00862344 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		10BAC6361E9415CF00862344 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		10BAC6391E9415CF00862344 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -97,8 +95,9 @@
 		10BAC62E1E9415CF00862344 /* Pinteresting */ = {
 			isa = PBXGroup;
 			children = (
+				10BAC65E1E942AB400862344 /* NetworkServices */,
+				10BAC65D1E942AAA00862344 /* ViewControllers */,
 				10BAC62F1E9415CF00862344 /* AppDelegate.swift */,
-				10BAC6311E9415CF00862344 /* ViewController.swift */,
 				10BAC6331E9415CF00862344 /* Main.storyboard */,
 				10BAC6361E9415CF00862344 /* Assets.xcassets */,
 				10BAC6381E9415CF00862344 /* LaunchScreen.storyboard */,
@@ -123,6 +122,20 @@
 				10BAC6511E9415CF00862344 /* Info.plist */,
 			);
 			path = PinterestingUITests;
+			sourceTree = "<group>";
+		};
+		10BAC65D1E942AAA00862344 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = ViewControllers;
+			sourceTree = "<group>";
+		};
+		10BAC65E1E942AB400862344 /* NetworkServices */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = NetworkServices;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -262,7 +275,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				10BAC6321E9415CF00862344 /* ViewController.swift in Sources */,
 				10BAC6301E9415CF00862344 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

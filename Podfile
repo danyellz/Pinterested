@@ -6,6 +6,10 @@ target 'Pinteresting' do
   use_frameworks!
 
   # Pods for Pinteresting
+  pod ‘Alamofire’
+  pod ‘SwiftJSON’
+  pod ‘SteviaLayout’
+  pod “PinterestSDK”, :git => “git@github.com:pinterest/ios-pdk.git”
 
   target 'PinterestingTests' do
     inherit! :search_paths
