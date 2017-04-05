@@ -16,19 +16,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
-        PDKClient.configureSharedInstance(withAppId: "4893480155768432996")
         
+        // Override point for customization after application launch.
+        PDKClient.configureSharedInstance(withAppId: "4893484700066134227")
+        
+        // MARK: Check for pre-existing auth token at login
         if let token = PDKClient.sharedInstance().oauthToken {
             print(token)
             setupMain()
         } else {
             setupLogin()
         }
-        
         return true
     }
     
+    //Login nav controller
     fileprivate func setupLogin() {
         let authNavController = UINavigationController(rootViewController: AuthenticateViewController())
         window = UIWindow(frame: UIScreen.main.bounds)
@@ -36,6 +38,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.makeKeyAndVisible()
     }
     
+    //Main nav controller
     fileprivate func setupMain() {
         let mainNavConroller = UINavigationController(rootViewController: MainBoardsViewController())
         window = UIWindow(frame: UIScreen.main.bounds)
@@ -43,10 +46,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.makeKeyAndVisible()
     }
     
+    //Handle URL callbacks for the Pinterest SDK
     func application(_ application: UIApplication, handleOpen url: URL) -> Bool {
         return PDKClient.sharedInstance().handleCallbackURL(url)
     }
     
+    //Handle URL callbacks for the Pinterest SDK
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
         return PDKClient.sharedInstance().handleCallbackURL(url)
     }

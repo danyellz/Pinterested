@@ -2,7 +2,7 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:Pinteresting.xcodeproj">
+      location = "group:/Users/ty/Development/Pinteresting/Pinteresting.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:Pods/Pods.xcodeproj">

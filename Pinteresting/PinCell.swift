@@ -19,7 +19,7 @@ class PinCell: UITableViewCell {
     var mainBackgroundView = UIView()
     var avatar = UIImageView()
     var tappableName = UILabel()
-    var commentTextView = UITextView()
+    var commentTextView = UILabel()
     var selectBtn = UIButton()
     var rightArrowView = UIImageView(image: UIImage(named: "arrow-point-to-right"))
     
@@ -28,7 +28,7 @@ class PinCell: UITableViewCell {
     var name: String? = ""
     var commentString: String? = ""
     
-    //MARK: If a GoogleRating object is given, store it's variables into reusable cell upon initilization
+    //MARK: If a PinObject object is not empty, utilize it's available variables into reusable cell assets upon initilization
     var pinItem: PinObject? {
         didSet{
             if let name = self.pinItem?.creatorName {
@@ -61,6 +61,18 @@ class PinCell: UITableViewCell {
         
     }
     
+    /*
+     Setup views/containers. Using Stevia to configure layouts: a framework that is practical due to
+     a more visually intuitive syntax. The basic usage of this framework involves setting a top constraint
+     for every asset that is vertically aligned. Also, Stevia allows for positioning view objects horizontally
+     aligned, and the sizes of each element become relative to one another based on percentages in relation to UIWindow sizes.
+     Finally, |-asset-| spans the window with a small margin left/right. ~ is used to set an approximate
+     height relative to window height.
+     
+     In order to use Stevia:
+     - 1. Add subviews to corresponding views w/ UIView.sv(views)
+     - 2. Layout subviews within the top view with UIView.layout()
+     */
     func setupView() {
         avatar.frame = contentView.bounds
         backgroundView = avatar
@@ -82,7 +94,7 @@ class PinCell: UITableViewCell {
         
         // MARK : Additional layouts
         
-        insertGradientLayer()
+        insertGradientLayer() //Adds gradient layer
         
         mainBackgroundView.backgroundColor = UIColor.clear
         
@@ -91,28 +103,28 @@ class PinCell: UITableViewCell {
         avatar.layer.shadowOffset = .zero
         avatar.layer.shadowRadius = 10
         
-        tappableName.font = UIFont.boldSystemFont(ofSize: 26)
+        tappableName.font = UIFont.boldSystemFont(ofSize: 22)
         tappableName.backgroundColor = UIColor.clear
         tappableName.textColor = UIColor.red
         
         commentTextView.backgroundColor = UIColor.clear
-        commentTextView.isUserInteractionEnabled = false
         commentTextView.textColor = UIColor.black
         commentTextView.font = UIFont.boldSystemFont(ofSize: 14)
         
-        rightArrowView.width(30)
+        rightArrowView.width(30) // NOTE : ^Makes right arrow width equal to height set via Stevia layouts ^
     }
     
     //Gradient for image or mask overlay effect
     func insertGradientLayer() {
         gradient.frame = contentView.bounds
-        gradient.colors = [UIColor.groupTableViewBackground.cgColor, UIColor.clear.cgColor]
+        gradient.colors = [UIColor.white.cgColor, UIColor.clear.cgColor]
         gradient.locations = [0.0, 0.8]
         gradient.startPoint = CGPoint(x: 0.0, y: 1.0)
         gradient.endPoint = CGPoint(x: 0.0, y: 0.0)
         contentView.layer.insertSublayer(gradient, at: 0)
     }
     
+    //Reset assets for cell to be used as new
     override func prepareForReuse() {
         super.prepareForReuse()
         

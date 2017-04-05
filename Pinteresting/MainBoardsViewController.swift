@@ -14,10 +14,14 @@ class MainBoardsViewController: UIViewController {
     // MARK : Network managers
     var pinterestManager = PinterestManager()
     
+    // MARK : ViewController assets
     var boardsTable = UITableView()
     var boardCollectionView: UICollectionView!
     
     // MARK : View data
+    var refreshControl = UIRefreshControl()
+    var tableController = UITableViewController()
+    
     var boardsArr = [BoardObject]() {
         didSet {
             boardCollectionView.reloadData()
@@ -33,25 +37,26 @@ class MainBoardsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //Setup collectionview delegate
         setupCollectionView()
         boardCollectionView.delegate = self
         boardCollectionView.dataSource = self
         boardCollectionView.register(BoardCollectionCell.self, forCellWithReuseIdentifier: "Cell")
         
+        //Setup tableview delegate
         boardsTable.delegate = self
         boardsTable.dataSource = self
         boardsTable.register(UITableViewCell.self, forCellReuseIdentifier: "BoardCell")
         boardsTable.register(PinCell.self, forCellReuseIdentifier: "PinCell")
         
-        setupView()
+        //Add pull-down refresh control
+//        tableController.tableView = boardsTable
+//        refreshControl.addTarget(self, action: #selector(loadViewData), for: .valueChanged)
+//        refreshControl.backgroundColor = UIColor.groupTableViewBackground
+//        tableController.refreshControl = self.refreshControl
         
-        /* 
-         MARK: - Fetch data for views. Since the app is fairly expensive data-wise, it's best to
-         initalize the 'feed' collection once, then reload via a pull-down action etc. This is for 
-         proof of concept for now.
-         */
-        getBoards()
-        getFeedData()
+        setupView()
+        loadViewData()
     }
     
     /*
@@ -64,7 +69,7 @@ class MainBoardsViewController: UIViewController {
      
      In order to use Stevia:
      - 1. Add subviews to corresponding views w/ UIView.sv(views)
-     - 2. Layout views within the top view with UIView.layout()
+     - 2. Layout subviews within the top view with UIView.layout()
      */
     fileprivate func setupView() {
         view.sv(boardsTable)
@@ -72,6 +77,11 @@ class MainBoardsViewController: UIViewController {
             0,
             |boardsTable| ~ view.frame.height
         )
+        
+        navigationController?.isNavigationBarHidden = false // Unhide nav
+        navigationItem.title = "Pinterested"
+        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.red,
+                                                                    NSFontAttributeName : UIFont.LilyScriptOne(sizeFont: 30)! as UIFont]
         
         view.backgroundColor = UIColor.white
         
@@ -88,6 +98,17 @@ class MainBoardsViewController: UIViewController {
                                             height: view.frame.size.height / 6),
                                             collectionViewLayout: layout)
         layout.itemSize = CGSize(width: boardCollectionView.frame.size.width / 4, height: view.frame.size.height / 6)
+    }
+    
+    //Load data
+    @objc fileprivate func loadViewData() {
+        /*
+         MARK: - Fetch data for views. Since the app is fairly expensive data-wise, it's best to
+         initalize the 'feed' collection once, persist feed data, then reload via a pull-down action etc. This is for
+         proof of concept for now.
+         */
+        getBoards()
+        getFeedData()
     }
     
     // MARK : Get user's boards
@@ -112,7 +133,7 @@ extension MainBoardsViewController : UITableViewDelegate {
         case 0:
             return view.frame.height / 6
         case 1:
-            return view.frame.height / 4
+            return view.frame.height / 3.8
         default:
             break
         }
@@ -182,7 +203,7 @@ extension MainBoardsViewController : UITableViewDataSource {
         if let headerView = view as? UITableViewHeaderFooterView {
             headerView.backgroundView?.backgroundColor = UIColor.white
             headerView.textLabel?.textColor = UIColor.red
-            headerView.textLabel?.font = UIFont.boldSystemFont(ofSize: 14)
+            headerView.textLabel?.font = UIFont.LilyScriptOne(sizeFont: 16)
             headerView.textLabel?.textAlignment = .center
             headerView.textLabel?.backgroundColor = UIColor.clear
         }

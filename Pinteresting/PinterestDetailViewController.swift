@@ -76,7 +76,7 @@ class PinterestDetailViewController: UIViewController {
          Custom blur effect for cardView. Slight overlap of titleView gives parallax effect.
          Ideally the cardView would be scrollable, minimizing the titleView frame.
          */
-        let blurEffect: UIBlurEffect = UIBlurEffect(style: UIBlurEffectStyle.light)
+        let blurEffect: UIBlurEffect = UIBlurEffect(style: UIBlurEffectStyle.extraLight)
         var blurEffectView: UIVisualEffectView = UIVisualEffectView()
         blurEffectView = UIVisualEffectView(effect: blurEffect)
         blurEffectView.frame = cardView.bounds
