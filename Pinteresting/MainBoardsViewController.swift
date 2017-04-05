@@ -44,7 +44,14 @@ class MainBoardsViewController: UIViewController {
         boardsTable.register(PinCell.self, forCellReuseIdentifier: "PinCell")
         
         setupView()
+        
+        /* 
+         MARK: - Fetch data for views. Since the app is fairly expensive data-wise, it's best to
+         initalize the 'feed' collection once, then reload via a pull-down action etc. This is for 
+         proof of concept for now.
+         */
         getBoards()
+        getFeedData()
     }
     
     /*
@@ -67,6 +74,8 @@ class MainBoardsViewController: UIViewController {
         )
         
         view.backgroundColor = UIColor.white
+        
+        boardCollectionView.backgroundColor = UIColor.white
     }
     
     fileprivate func setupCollectionView() {
@@ -78,7 +87,7 @@ class MainBoardsViewController: UIViewController {
                                             width: view.frame.size.width,
                                             height: view.frame.size.height / 6),
                                             collectionViewLayout: layout)
-        layout.itemSize = CGSize(width: boardCollectionView.frame.size.width / 3, height: view.frame.size.height / 6)
+        layout.itemSize = CGSize(width: boardCollectionView.frame.size.width / 4, height: view.frame.size.height / 6)
     }
     
     // MARK : Get user's boards
@@ -86,7 +95,9 @@ class MainBoardsViewController: UIViewController {
         pinterestManager.getUserBoards(completionHandler: {(boards) -> Void in
             self.boardsArr = boards!
         })
-        
+    }
+    
+    fileprivate func getFeedData() {
         pinterestManager.getFeedItems(completionHandler: {(feedPins) -> Void in
             self.feedItems = feedPins!
         })
@@ -97,7 +108,26 @@ class MainBoardsViewController: UIViewController {
 
 extension MainBoardsViewController : UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return view.frame.height / 6
+        switch indexPath.section {
+        case 0:
+            return view.frame.height / 6
+        case 1:
+            return view.frame.height / 4
+        default:
+            break
+        }
+        return 0
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        switch indexPath.section {
+        case 1:
+            let detailVC = PinterestDetailViewController() //Set up pin detail ViewController for segue
+            detailVC.pinObject = feedItems[indexPath.row]
+            self.navigationController?.pushViewController(detailVC, animated: true)
+        default:
+            break
+        }
     }
 }
 
@@ -171,7 +201,7 @@ extension MainBoardsViewController : UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! BoardCollectionCell
-        cell.backgroundColor = UIColor.lightGray
+        cell.backgroundColor = UIColor.white
         cell.boardItem = boardsArr[indexPath.row]
         return cell
     }

@@ -63,11 +63,10 @@ class PinterestManager {
                 print("Unable to parse pin JSON.")
                 return
             }
-            //Iterate through pin objects, store in Pin model
+            //Iterate through pin objects. If JSON object is valid, store in Pin model.
             if !pins.isEmpty {
                 var emptyPinArr = [PinObject]()
                 for pin in pins {
-                    print("BOARDPIN\(pin)")
                     if let validPin = PinObject(json: pin) {
                         emptyPinArr.append(validPin)
                     }
@@ -80,10 +79,15 @@ class PinterestManager {
     }
     
     func getFeedItems(completionHandler: @escaping (_ pins: [PinObject]?) -> Void) {
+        var emptyPinArr = [PinObject]()
+        
         getUserBoards(completionHandler: {(boards) -> Void in
             for board in boards! {
                 self.getBoardPins(identifier: board.id!, completionHandler: {(pins) -> Void in
-                    completionHandler(pins!)
+                    for pin in pins! {
+                        emptyPinArr.append(pin)
+                    }
+                    completionHandler(emptyPinArr)
                 })
             }
         })

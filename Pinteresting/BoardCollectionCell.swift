@@ -15,9 +15,9 @@ import SDWebImage
 class BoardCollectionCell: UICollectionViewCell {
     //MARK: View assets
     var mainBackgroundView = UIView()
-    var avatar: UIImageView = UIImageView()
+    var avatar = UIImageView()
     var tappableName = UILabel()
-    var commentTextView = UITextView()
+    var descriptionLabel = UILabel()
     var selectBtn = UIButton()
     
     //MARK: Reused variables
@@ -31,10 +31,12 @@ class BoardCollectionCell: UICollectionViewCell {
             if let name = self.boardItem?.name {
                 tappableName.text = name
                 
+                descriptionLabel.text = "No description"
+                descriptionLabel.text = boardItem?.description
+                
                 if let boardImg = boardItem?.imageURL {
                     self.avatar.sd_setImage(with: URL(string: boardImg), placeholderImage: UIImage(), options: [.refreshCached] )
                 }
-                self.commentTextView.text = boardItem?.description
             }
         }
     }
@@ -57,8 +59,22 @@ class BoardCollectionCell: UICollectionViewCell {
 
     func setupView() {
         
-        avatar.frame = contentView.bounds
-        avatar.layer.cornerRadius = 25
-        backgroundView = avatar
+        contentView.sv(avatar, descriptionLabel)
+        contentView.layout(
+            0,
+            |-avatar-|,
+            0,
+            |-descriptionLabel-| ~ 20
+        )
+        
+        avatar.width(80)
+        avatar.height(80)
+        avatar.layer.cornerRadius = 40
+        avatar.centerHorizontally()
+        
+        descriptionLabel.backgroundColor = UIColor.clear
+        descriptionLabel.textColor = UIColor.white
+        descriptionLabel.textAlignment = .center
+        descriptionLabel.isUserInteractionEnabled = false
     }
 }

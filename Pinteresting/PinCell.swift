@@ -17,7 +17,7 @@ class PinCell: UITableViewCell {
     //MARK: View assets
     var gradient = CAGradientLayer()
     var mainBackgroundView = UIView()
-    var avatar: UIImageView = UIImageView()
+    var avatar = UIImageView()
     var tappableName = UILabel()
     var commentTextView = UITextView()
     var selectBtn = UIButton()
@@ -61,15 +61,18 @@ class PinCell: UITableViewCell {
     }
     
     func setupView() {
+        avatar.frame = contentView.bounds
+        backgroundView = avatar
+        
         contentView.sv(mainBackgroundView)
         contentView.layout(
             0,
-            |-mainBackgroundView-| ~ self.contentView.frame.height
+            |-mainBackgroundView-| ~ self.contentView.frame.height - 20
         )
         
         mainBackgroundView.sv(tappableName, selectBtn, commentTextView)
         mainBackgroundView.layout(
-            (contentView.frame.height / 4),
+            (contentView.frame.height / 3),
             |-tappableName-|,
             0,
             |-commentTextView-| ~ 40 //Left offset is relative to avatar width
@@ -81,20 +84,16 @@ class PinCell: UITableViewCell {
         
         mainBackgroundView.backgroundColor = UIColor.clear
         
-        avatar.height(60)
-        avatar.width(60)
         avatar.layer.shadowColor = UIColor.black.cgColor
         avatar.layer.shadowOpacity = 1
         avatar.layer.shadowOffset = .zero
         avatar.layer.shadowRadius = 10
-        avatar.frame = contentView.bounds
-        backgroundView = avatar
         
         tappableName.height(30)
         tappableName.top(-10)
         tappableName.font = UIFont.boldSystemFont(ofSize: 22)
         tappableName.backgroundColor = UIColor.clear
-        tappableName.textColor = UIColor.darkGray
+        tappableName.textColor = UIColor.red
         
         commentTextView.backgroundColor = UIColor.clear
         commentTextView.isUserInteractionEnabled = false
@@ -105,17 +104,17 @@ class PinCell: UITableViewCell {
     //Gradient for image overlay affect
     func insertGradientLayer() {
         gradient.frame = contentView.bounds
-        gradient.colors = [UIColor.groupTableViewBackground.cgColor, UIColor.clear.cgColor]
+        gradient.colors = [UIColor.black.cgColor, UIColor.clear.cgColor]
         gradient.locations = [0.0, 0.8]
-        gradient.startPoint = CGPoint(x: 0.0, y: 0.0)
-        gradient.endPoint = CGPoint(x: 1.0, y: 1.0)
+        gradient.startPoint = CGPoint(x: 0.5, y: 1.0)
+        gradient.endPoint = CGPoint(x: 2.0, y: 0.0)
         contentView.layer.insertSublayer(gradient, at: 0)
     }
     
     override func prepareForReuse() {
         super.prepareForReuse()
         
-        gradient = CAGradientLayer()
+        gradient.removeFromSuperlayer()
         tappableName.text = ""
         avatar.image = nil
         avatar.isHidden = false
