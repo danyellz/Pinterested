@@ -122,7 +122,7 @@ extension MainBoardsViewController : UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath.section {
         case 1:
-            let detailVC = PinterestDetailViewController() //Set up pin detail ViewController for segue
+            let detailVC = PinterestDetailViewController() //Set up pin detail VC data for segue
             detailVC.pinObject = feedItems[indexPath.row]
             self.navigationController?.pushViewController(detailVC, animated: true)
         default:

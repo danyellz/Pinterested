@@ -21,6 +21,7 @@ class PinCell: UITableViewCell {
     var tappableName = UILabel()
     var commentTextView = UITextView()
     var selectBtn = UIButton()
+    var rightArrowView = UIImageView(image: UIImage(named: "arrow-point-to-right"))
     
     //MARK: Reused variables
     var avatarString: String? = ""
@@ -70,16 +71,17 @@ class PinCell: UITableViewCell {
             |-mainBackgroundView-| ~ self.contentView.frame.height - 20
         )
         
-        mainBackgroundView.sv(tappableName, selectBtn, commentTextView)
+        mainBackgroundView.sv(tappableName, selectBtn, commentTextView, rightArrowView)
         mainBackgroundView.layout(
-            (contentView.frame.height / 3),
-            |-tappableName-|,
+            (contentView.frame.height / 2),
+            |-tappableName-rightArrowView| ~ 30,
             0,
             |-commentTextView-| ~ 40 //Left offset is relative to avatar width
             
         )
         
         // MARK : Additional layouts
+        
         insertGradientLayer()
         
         mainBackgroundView.backgroundColor = UIColor.clear
@@ -89,25 +91,25 @@ class PinCell: UITableViewCell {
         avatar.layer.shadowOffset = .zero
         avatar.layer.shadowRadius = 10
         
-        tappableName.height(30)
-        tappableName.top(-10)
-        tappableName.font = UIFont.boldSystemFont(ofSize: 22)
+        tappableName.font = UIFont.boldSystemFont(ofSize: 26)
         tappableName.backgroundColor = UIColor.clear
         tappableName.textColor = UIColor.red
         
         commentTextView.backgroundColor = UIColor.clear
         commentTextView.isUserInteractionEnabled = false
-        commentTextView.textColor = UIColor.white
-        commentTextView.font = UIFont.boldSystemFont(ofSize: 12)
+        commentTextView.textColor = UIColor.black
+        commentTextView.font = UIFont.boldSystemFont(ofSize: 14)
+        
+        rightArrowView.width(30)
     }
     
-    //Gradient for image overlay affect
+    //Gradient for image or mask overlay effect
     func insertGradientLayer() {
         gradient.frame = contentView.bounds
-        gradient.colors = [UIColor.black.cgColor, UIColor.clear.cgColor]
+        gradient.colors = [UIColor.groupTableViewBackground.cgColor, UIColor.clear.cgColor]
         gradient.locations = [0.0, 0.8]
-        gradient.startPoint = CGPoint(x: 0.5, y: 1.0)
-        gradient.endPoint = CGPoint(x: 2.0, y: 0.0)
+        gradient.startPoint = CGPoint(x: 0.0, y: 1.0)
+        gradient.endPoint = CGPoint(x: 0.0, y: 0.0)
         contentView.layer.insertSublayer(gradient, at: 0)
     }
     

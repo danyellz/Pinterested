@@ -73,7 +73,7 @@ class BoardCollectionCell: UICollectionViewCell {
         avatar.centerHorizontally()
         
         descriptionLabel.backgroundColor = UIColor.clear
-        descriptionLabel.textColor = UIColor.white
+        descriptionLabel.textColor = UIColor.lightGray
         descriptionLabel.textAlignment = .center
         descriptionLabel.isUserInteractionEnabled = false
     }
