@@ -12,8 +12,10 @@ import SwiftyJSON
 import Stevia
 import SDWebImage
 
-class BoardCell: UITableViewCell {
+class PinCell: UITableViewCell {
+    
     //MARK: View assets
+    var gradient = CAGradientLayer()
     var mainBackgroundView = UIView()
     var avatar: UIImageView = UIImageView()
     var tappableName = UILabel()
@@ -26,15 +28,15 @@ class BoardCell: UITableViewCell {
     var commentString: String? = ""
     
     //MARK: If a GoogleRating object is given, store it's variables into reusable cell upon initilization
-    var boardItem: BoardObject? {
+    var pinItem: PinObject? {
         didSet{
-            if let name = self.boardItem?.name {
+            if let name = self.pinItem?.creatorName {
                 tappableName.text = name
                 
-                if let boardImg = boardItem?.imageURL {
+                if let boardImg = pinItem?.imageURL {
                     self.avatar.sd_setImage(with: URL(string: boardImg), placeholderImage: UIImage(), options: [.refreshCached] )
                 }
-                self.commentTextView.text = boardItem?.description
+                self.commentTextView.text = pinItem?.description
             }
         }
     }
@@ -42,6 +44,8 @@ class BoardCell: UITableViewCell {
     //MARK: - Set up layouts for cell
     override func layoutSubviews() {
         super.layoutSubviews()
+        
+        self.selectionStyle = .none
         
         setupView()
     }
@@ -57,48 +61,61 @@ class BoardCell: UITableViewCell {
     }
     
     func setupView() {
-        self.contentView.sv(mainBackgroundView)
-        mainBackgroundView.sv(avatar, tappableName, selectBtn, commentTextView)
-        
-        self.contentView.layout(
+        contentView.sv(mainBackgroundView)
+        contentView.layout(
             0,
             |-mainBackgroundView-| ~ self.contentView.frame.height
         )
         
+        mainBackgroundView.sv(tappableName, selectBtn, commentTextView)
         mainBackgroundView.layout(
-            10,
-            |-avatar-tappableName-|,
-            -30,
-            |-70-commentTextView-| ~ 40 //Left offset is relative to avatar width
+            (contentView.frame.height / 4),
+            |-tappableName-|,
+            0,
+            |-commentTextView-| ~ 40 //Left offset is relative to avatar width
             
         )
         
-        mainBackgroundView.backgroundColor = UIColor.white
+        // MARK : Additional layouts
+        insertGradientLayer()
         
-        avatar.backgroundColor = UIColor.lightGray
+        mainBackgroundView.backgroundColor = UIColor.clear
+        
         avatar.height(60)
         avatar.width(60)
-        avatar.layer.cornerRadius = 14.5
         avatar.layer.shadowColor = UIColor.black.cgColor
         avatar.layer.shadowOpacity = 1
         avatar.layer.shadowOffset = .zero
         avatar.layer.shadowRadius = 10
+        avatar.frame = contentView.bounds
+        backgroundView = avatar
         
-        tappableName.height(20)
+        tappableName.height(30)
         tappableName.top(-10)
         tappableName.font = UIFont.boldSystemFont(ofSize: 22)
         tappableName.backgroundColor = UIColor.clear
-        tappableName.textColor = UIColor.black
+        tappableName.textColor = UIColor.darkGray
         
         commentTextView.backgroundColor = UIColor.clear
         commentTextView.isUserInteractionEnabled = false
-        commentTextView.textColor = UIColor.lightGray
+        commentTextView.textColor = UIColor.white
         commentTextView.font = UIFont.boldSystemFont(ofSize: 12)
+    }
+    
+    //Gradient for image overlay affect
+    func insertGradientLayer() {
+        gradient.frame = contentView.bounds
+        gradient.colors = [UIColor.groupTableViewBackground.cgColor, UIColor.clear.cgColor]
+        gradient.locations = [0.0, 0.8]
+        gradient.startPoint = CGPoint(x: 0.0, y: 0.0)
+        gradient.endPoint = CGPoint(x: 1.0, y: 1.0)
+        contentView.layer.insertSublayer(gradient, at: 0)
     }
     
     override func prepareForReuse() {
         super.prepareForReuse()
         
+        gradient = CAGradientLayer()
         tappableName.text = ""
         avatar.image = nil
         avatar.isHidden = false
