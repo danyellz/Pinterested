@@ -13,6 +13,7 @@ import PinterestSDK
 
 class PinterestManager {
     
+    // MARK : Authenticate network function
     func userAuthenticate(completionHandler: @escaping (_ success: Bool?) -> Void) {
         let permissions = [PDKClientReadPublicPermissions]
         PDKClient.sharedInstance().authenticate(withPermissions: permissions, withSuccess: {(response) -> Void in
@@ -30,20 +31,21 @@ class PinterestManager {
     
     // MARK : Get boards for authenitcated user - me
     func getUserBoards(completionHandler: @escaping (_ boards: [BoardObject]?) -> Void) {
-        PDKClient.sharedInstance().getAuthenticatedUserBoards(withFields: Set(["url", "id", "name", "image"]), success: {(response) -> Void in
+        PDKClient.sharedInstance().getAuthenticatedUserBoards(withFields: Set(["url", "id", "name", "image", "description"]), success: {(response) -> Void in
             
             guard let boards = JSON(response?.parsedJSONDictionary["data"]!).array else {
                 print("Unable to retrieve user boards.")
                 return
             }
-            
             // MARK : Iterate through response object, storing each board.
             var emptyBoardArr = [BoardObject]()
             for board in boards {
+                print(board)
                 if let validBoard = BoardObject(json: board) { //Validate JSON object before storing as BoardObject
                     emptyBoardArr.append(validBoard)
                 }
             }
+            
             completionHandler(emptyBoardArr) //Pass filled collection to completion
             
         }) {(error) -> Void in
@@ -59,6 +61,7 @@ class PinterestManager {
                 print("Unable to parse pin JSON.")
                 return
             }
+            //Iterate through pin objects, store in Pin model
             if !pins.isEmpty {
                 for pin in pins {
                     print("PIN: \(pin)")

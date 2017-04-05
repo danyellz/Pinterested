@@ -7,7 +7,10 @@
 //
 
 import Foundation
+import UIKit
 import SwiftyJSON
+import Stevia
+import SDWebImage
 
 class BoardCell: UITableViewCell {
     //MARK: View assets
@@ -22,15 +25,16 @@ class BoardCell: UITableViewCell {
     var name: String? = ""
     var commentString: String? = ""
     
-    //MARK: If a GoogleRating object is given, pass it's variables into reusable cell upon initilization
-    var commentItem: GoogleRating? {
+    //MARK: If a GoogleRating object is given, store it's variables into reusable cell upon initilization
+    var boardItem: BoardObject? {
         didSet{
-            if let comment = self.commentItem?.review {
-                if let userImg = commentItem?.usrPhotoString {
-                    self.avatar.sd_setImage(with: URL(string: userImg), placeholderImage: UIImage(), options: [.refreshCached] )
+            if let name = self.boardItem?.name {
+                tappableName.text = name
+                
+                if let boardImg = boardItem?.imageURL {
+                    self.avatar.sd_setImage(with: URL(string: boardImg), placeholderImage: UIImage(), options: [.refreshCached] )
                 }
-                self.tappableName.text = String(format: "%.1f", (commentItem?.rating) ?? 0.0)
-                self.commentTextView.text = comment
+                self.commentTextView.text = boardItem?.description
             }
         }
     }
@@ -43,7 +47,6 @@ class BoardCell: UITableViewCell {
     }
     
     //MARK: - Initialization
-    
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)!
     }
@@ -65,16 +68,16 @@ class BoardCell: UITableViewCell {
         mainBackgroundView.layout(
             10,
             |-avatar-tappableName-|,
-            -10,
-            |-44-commentTextView-| ~ 40
+            -30,
+            |-70-commentTextView-| ~ 40 //Left offset is relative to avatar width
             
         )
         
         mainBackgroundView.backgroundColor = UIColor.white
         
         avatar.backgroundColor = UIColor.lightGray
-        avatar.height(29)
-        avatar.width(29)
+        avatar.height(60)
+        avatar.width(60)
         avatar.layer.cornerRadius = 14.5
         avatar.layer.shadowColor = UIColor.black.cgColor
         avatar.layer.shadowOpacity = 1
@@ -90,7 +93,7 @@ class BoardCell: UITableViewCell {
         commentTextView.backgroundColor = UIColor.clear
         commentTextView.isUserInteractionEnabled = false
         commentTextView.textColor = UIColor.lightGray
-        commentTextView.font = UIFont.boldSystemFont(ofSize: 14)
+        commentTextView.font = UIFont.boldSystemFont(ofSize: 12)
     }
     
     override func prepareForReuse() {

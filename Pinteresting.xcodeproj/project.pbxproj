@@ -124,9 +124,9 @@
 		10BAC62E1E9415CF00862344 /* Pinteresting */ = {
 			isa = PBXGroup;
 			children = (
+				10BAC62F1E9415CF00862344 /* AppDelegate.swift */,
 				10BAC66D1E9465CE00862344 /* CustomViews */,
 				10BAC6681E944E1B00862344 /* DataModels */,
-				10BAC62F1E9415CF00862344 /* AppDelegate.swift */,
 				10BAC65E1E942AB400862344 /* NetworkServices */,
 				10BAC65D1E942AAA00862344 /* ViewControllers */,
 				10BAC6331E9415CF00862344 /* Main.storyboard */,

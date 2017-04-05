@@ -14,6 +14,7 @@ class BoardObject {
     var imageURL: String?
     var name: String?
     var linkUrl: String?
+    var description: String?
     
     // MARK: - Object initialization
     
@@ -31,6 +32,7 @@ class BoardObject {
             self.id = json["id"].string ?? ""
             self.imageURL = json["image"]["60x60"]["url"].string ?? ""
             self.linkUrl = json["url"].string ?? ""
+            self.description = json["description"].string ?? ""
             
             return
         }
