@@ -9,7 +9,7 @@
 import Foundation
 import SwiftyJSON
 
-class BoardObject {
+struct BoardObject {
     var id: String?
     var imageURL: String?
     var name: String?
@@ -26,7 +26,7 @@ class BoardObject {
      *Check if key/value pairs matching the model exist. If so,
      *continue verifying JSON key/values then store variable values.
      */
-    convenience init?(json: JSON) {
+    init?(json: JSON) {
         if let name = json["name"].string {
             self.init(name: name)
             self.id = json["id"].string ?? ""

@@ -14,11 +14,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
         // Override point for customization after application launch.
-        PDKClient.configureSharedInstance(withAppId: "4893484700066134227")
+        PDKClient.configureSharedInstance(withAppId: "4893409043854407128")
         
         // MARK: Check for pre-existing auth token at login
         if let token = PDKClient.sharedInstance().oauthToken {

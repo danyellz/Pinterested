@@ -17,7 +17,7 @@ class PinCell: UITableViewCell {
     //MARK: View assets
     var gradient = CAGradientLayer()
     var mainBackgroundView = UIView()
-    var avatar = UIImageView()
+    var avatar = ShapedImageView()
     var tappableName = UILabel()
     var commentTextView = UILabel()
     var selectBtn = UIButton()
@@ -74,19 +74,16 @@ class PinCell: UITableViewCell {
      - 2. Layout subviews within the top view with UIView.layout()
      */
     func setupView() {
-        avatar.frame = contentView.bounds
-        backgroundView = avatar
-        
         contentView.sv(mainBackgroundView)
         contentView.layout(
-            0,
+            10,
             |-mainBackgroundView-| ~ self.contentView.frame.height - 20
         )
         
-        mainBackgroundView.sv(tappableName, selectBtn, commentTextView, rightArrowView)
+        mainBackgroundView.sv(avatar, tappableName, selectBtn, commentTextView, rightArrowView)
         mainBackgroundView.layout(
-            (contentView.frame.height / 2),
-            |-tappableName-rightArrowView| ~ 30,
+            0,
+            |-avatar-tappableName-rightArrowView| ~ 30,
             0,
             |-commentTextView-| ~ 40 //Left offset is relative to avatar width
             
@@ -96,8 +93,12 @@ class PinCell: UITableViewCell {
         
         insertGradientLayer() //Adds gradient layer
         
+        contentView.backgroundColor = UIColor.groupTableViewBackground
         mainBackgroundView.backgroundColor = UIColor.clear
         
+        avatar.width(100)
+        avatar.height(100)
+        avatar.layer.opacity = 0.8
         avatar.layer.shadowColor = UIColor.black.cgColor
         avatar.layer.shadowOpacity = 1
         avatar.layer.shadowOffset = .zero

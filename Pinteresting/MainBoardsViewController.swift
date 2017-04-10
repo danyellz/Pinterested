@@ -133,7 +133,7 @@ extension MainBoardsViewController : UITableViewDelegate {
         case 0:
             return view.frame.height / 6
         case 1:
-            return view.frame.height / 3.8
+            return view.frame.height / 4.5
         default:
             break
         }

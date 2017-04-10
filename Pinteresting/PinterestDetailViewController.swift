@@ -56,8 +56,8 @@ class PinterestDetailViewController: UIViewController {
         view.layout(
             0,
             |titleView| ~ view.frame.height / 2,
-            0,
-            |cardView| ~ view.frame.height / 2
+            (view.frame.height / 4),
+            |cardView| ~ view.frame.height / 4
         )
         
         titleView.sv(imageView)
@@ -83,6 +83,7 @@ class PinterestDetailViewController: UIViewController {
         blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         cardView.insertSubview(blurEffectView, at: 0)
         cardView.backgroundColor = UIColor.clear
+        cardView.layer.opacity = 0.9
         
         imageView.frame = titleView.bounds
         imageView.centerHorizontally()
@@ -90,9 +91,9 @@ class PinterestDetailViewController: UIViewController {
         cardView.backgroundColor = UIColor.lightGray
         nameLabel.backgroundColor = UIColor.clear
         
-        nameLabel.textColor = UIColor.white
+        nameLabel.textColor = UIColor.red
         nameLabel.textAlignment = .center
-        nameLabel.font = UIFont.boldSystemFont(ofSize: 30)
+        nameLabel.font = UIFont.boldSystemFont(ofSize: 22)
         
         descriptionView.textColor = UIColor.darkGray
         descriptionView.backgroundColor = UIColor.clear
@@ -102,8 +103,8 @@ class PinterestDetailViewController: UIViewController {
     
     // MARK: Function used to load data into view after layouts finish initializing
     fileprivate func setupContainerData() {
-        nameLabel.text = "by: " + (pinObject?.creatorName)!
-        descriptionView.text = "description: " + (pinObject?.description)!
+        nameLabel.text = "pinned by: " + (pinObject?.creatorName)!
+        descriptionView.text = "d: " + (pinObject?.description)!
         
         DispatchQueue.main.async {
             self.imageView.sd_setImage(with: URL(string: (self.pinObject?.imageURL)!),

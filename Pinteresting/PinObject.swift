@@ -9,7 +9,7 @@
 import Foundation
 import SwiftyJSON
 
-class PinObject {
+struct PinObject {
     var id: String?
     var imageURL: String?
     var creatorName: String?
@@ -26,7 +26,7 @@ class PinObject {
      *Check if key/value pairs matching the model exist. If so,
      *continue verifying JSON key/values then store variable values.
      */
-    convenience init?(json: JSON) {
+    init?(json: JSON) {
         if json["creator"]["first_name"].string != nil {
             let first = json["creator"]["first_name"].string ?? ""
             let last = json["creator"]["last_name"].string ?? ""

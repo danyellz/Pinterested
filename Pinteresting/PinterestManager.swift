@@ -80,6 +80,7 @@ class PinterestManager {
             if !pins.isEmpty {
                 var emptyPinArr = [PinObject]()
                 for pin in pins {
+                    print("BOARDPIN: \(pin)")
                     if let validPin = PinObject(json: pin) {
                         emptyPinArr.append(validPin)
                     }
