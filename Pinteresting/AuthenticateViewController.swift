@@ -16,6 +16,7 @@ class AuthenticateViewController: UIViewController {
     
     // MARK : View assets
     var logoLabel = UILabel()
+    var descView = UITextView()
     var authBtn = UIButton()
     
     // MARK: - Lifecycle
@@ -38,11 +39,13 @@ class AuthenticateViewController: UIViewController {
      - 2. Layout subviews within the top view with UIView.layout()
      */
     fileprivate func setupView() {
-        view.sv(logoLabel, authBtn)
+        view.sv(logoLabel, descView, authBtn)
         view.layout(
-            0,
-            |-logoLabel-| ~ 80,
             (view.frame.height / 6),
+            |-logoLabel-| ~ 80,
+            0,
+            |-descView-| ~ 80,
+            0,
             authBtn ~ 40
         )
         
@@ -57,6 +60,11 @@ class AuthenticateViewController: UIViewController {
         logoLabel.textColor = UIColor.red
         logoLabel.font = UIFont.LilyScriptOne(sizeFont: 40)
         logoLabel.textAlignment = .center
+        
+        descView.text = "The semi live pin viewing feed. \n Emphasis on 'semi' ;)"
+        descView.textColor = UIColor.lightGray
+        descView.isUserInteractionEnabled = false
+        descView.textAlignment = .center
         
         authBtn.width(200)
         authBtn.backgroundColor = UIColor.red
